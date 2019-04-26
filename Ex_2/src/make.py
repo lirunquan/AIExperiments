@@ -3,19 +3,20 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
-def load_words(data="data/segmented.txt"):
-	file = open(data, "r")
+import os
+import sys
+
+def load_words(data="../data/segmented.txt"):
+	file = open(data, "r", encoding='UTF-8')
 	lines = file.readlines()
 	array = []
 	for line in lines:
-		##text = line.split()
-		##array.append(text)
 		array.append(line)
 	file.close()
 	return array
-def load_class(data="data/class.txt"):
+def load_class(data="../data/class.txt"):
 	array = []
-	file = open(data,"r")
+	file = open(data,"r", encoding='UTF-8')
 	lines = file.readlines()
 	for line in lines:
 		array.append(int(line))
@@ -28,8 +29,6 @@ def main():
 	clf = MultinomialNB().fit(wordX, train_y)
 	test_wordX = vectorizer.transform(test_data).toarray()
 	predicted = clf.predict(test_wordX)
-	##for doc, category in zip(test_data, predicted):
-		##print(doc,": ",category)
 	class_target = ['Normal', 'Insult']
 	print(classification_report(test_y,predicted,target_names=class_target))
 	print('accuracy: ',accuracy_score(test_y, predicted))
@@ -37,3 +36,4 @@ def main():
 if __name__ == '__main__':
 	for i in range(10):
 		main()
+	os.system("pause")
