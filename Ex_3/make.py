@@ -7,7 +7,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
-
+import warnings
+warnings.filterwarnings('ignore')
 iris = datasets.load_iris()
 def predicted_result(n):
 	x_train,x_test,y_train,y_test = train_test_split(iris.data,iris.target,test_size=0.33,random_state=45)
