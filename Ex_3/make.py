@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
-
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
@@ -8,6 +5,8 @@ from sklearn.metrics import classification_report
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
 import warnings
+import os
+import sys
 warnings.filterwarnings('ignore')
 iris = datasets.load_iris()
 def predicted_result(n):
@@ -35,4 +34,6 @@ def cross():
 if __name__ == '__main__':
 	for i in [2,3,4,5]:
 		predicted_result(i)
+	print('-'*30)
 	cross()
+	os.system("pause")
