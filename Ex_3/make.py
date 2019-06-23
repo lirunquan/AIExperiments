@@ -8,21 +8,24 @@ import warnings
 import os
 import sys
 warnings.filterwarnings('ignore')
-iris = datasets.load_iris()
+def get_iris_split():
+	iris = datasets.load_iris()
+	a,b,c,d = train_test_split(iris.data,iris.target,test_size=0.33,random_state=45)
+	return a, b, c, d
 def predicted_result(n):
-	x_train,x_test,y_train,y_test = train_test_split(iris.data,iris.target,test_size=0.33,random_state=45)
+	x_train,x_test,y_train,y_test = get_iris_split()
 	ss = StandardScaler()
 	x_train = ss.fit_transform(x_train)
 	x_test = ss.transform(x_test)
 	knn = KNeighborsClassifier(n_neighbors=n)	
 	knn.fit(x_train, y_train)
 	y_predict = knn.predict(x_test)
-	label = iris.target_names
+	#label = iris.target_names
 	#for i in range(len(y_predict)):
 		#print("Test %02d: truth:[%s]    \tpredicted:[%s]"%((i+1),label[y_predict[i]],label[y_test[i]]))
 	print("Accuracy with KNN(k=%d): %f"%(n,knn.score(x_test,y_test)))
 def cross():
-	x_train,x_test,y_train,y_test = train_test_split(iris.data,iris.target,test_size=0.33,random_state=45)
+	x_train,x_test,y_train,y_test = get_iris_split()
 	params = {'n_neighbors': [2,3,4,5]}
 	knn = KNeighborsClassifier()	
 	gcv = GridSearchCV(knn, param_grid=params, cv=3)
